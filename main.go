@@ -50,6 +50,12 @@ func runAsAdmin() {
 		return
 	}
 
+	isAdmin := isRunningAsAdmin()
+
+	if isAdmin {
+		return
+	}
+
 	cmd := exec.Command("powershell", "-Command", "Start-Process", os.Args[0], "-ArgumentList", "--admin", "-Verb", "runAs")
 
 	if err := cmd.Run(); err != nil {
@@ -60,8 +66,13 @@ func runAsAdmin() {
 	os.Exit(0)
 }
 
-func applyDNS(provider DNSProvider) {
+func isRunningAsAdmin() bool {
+	cmd := exec.Command("net", "session")
+	err := cmd.Run()
+	return err == nil
+}
 
+func applyDNS(provider DNSProvider) {
 	if provider == None {
 		clearDNSSettings()
 	} else {
