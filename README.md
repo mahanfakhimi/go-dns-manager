@@ -24,7 +24,7 @@ DNS Manager is a command-line tool to easily switch between different DNS provid
 
    ```sh
    git clone https://github.com/mahanfakhimi/go-dns-manager.git
-   cd DNS-Manager
+   cd go-dns-manager
    ```
 
 2. Build the project:
